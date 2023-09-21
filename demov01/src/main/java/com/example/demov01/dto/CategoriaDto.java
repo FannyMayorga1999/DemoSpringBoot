@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class CategoriaDto {
 
     @Id
+    //auto generacion id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -20,5 +21,4 @@ public class CategoriaDto {
 
     @Column(name = "deleted")
     private boolean deleted;
-}
 }
