@@ -4,12 +4,10 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categoria", schema = "private")
-@Data
+@Table(name = "categoria", schema="private")
 public class CategoriaDto {
 
     @Id
-    //auto generacion id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -17,7 +15,7 @@ public class CategoriaDto {
     private String name;
 
     @Column(name = "description")
-    private String benefit;
+    private String description;
 
     @Column(name = "deleted")
     private boolean deleted;
