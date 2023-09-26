@@ -17,8 +17,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
-	compileOnly 'org.projectlombok:lombok:1.18.22' // Verifica la versión actual
-	implementation 'org.projectlombok:lombok:1.18.22' //Libreia para generar solo set get de los modelos
+	implementation 'org.projectlombok:lombok:1.18.22' // Asegúrate de usar la última versión disponible
+	annotationProcessor 'org.projectlombok:lombok:1.18.22' // Asegúrate de usar la última versión disponible
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//NUEVAS

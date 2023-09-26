@@ -31,7 +31,7 @@ public class ClienteController {
         }
     }
 
-    /*@GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getClientById(@PathVariable Long id) {
         Optional<ClientDto> productoOptional = clientService.getClientById(id);
 
@@ -87,5 +87,5 @@ public class ClienteController {
         } catch (Exception e) {
             return new ResponseEntity<>("Error al cliente el producto: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
 }
