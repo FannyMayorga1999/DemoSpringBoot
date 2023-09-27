@@ -5,16 +5,15 @@ import com.example.demov01.service.impl.CategoriaImpl;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-
+//Ayuda a dar permiso de cors para el consumo
+@CrossOrigin(origins ={ "http://localhost:4200"})
 @RestController
 @RequestMapping("/categoria")
-@Service
 public class CategoriaController {
 
     @Autowired
