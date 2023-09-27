@@ -1,5 +1,6 @@
 package com.example.demov01.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ public class ClientDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "identification")
+    @Column(name = "identification", unique = true)
     private String identification;
 
     @Column(name = "name")
@@ -23,6 +24,7 @@ public class ClientDto {
     @Column(name = "phone")
     private String phone;
 
+    @JsonIgnore
     @Column(name = "deleted")
     private boolean deleted;
 }

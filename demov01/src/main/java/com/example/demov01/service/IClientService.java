@@ -9,7 +9,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IClientService extends JpaRepository<ClientDto, Long> {
-    List<ClientDto> findByDeletedFalse();
+
+    boolean existsByIdentification(String name);
+    @Query("SELECT cd FROM ClientDto cd WHERE cd.deleted = false ORDER BY cd.name ASC")
+    List<ClientDto> listClient();
 
     @Modifying
     @Query("UPDATE FROM ClientDto SET deleted = 1 WHERE  id =  :id")

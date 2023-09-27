@@ -1,6 +1,7 @@
 package com.example.demov01.service.impl;
 
 import com.example.demov01.dto.ClientDto;
+import com.example.demov01.exceptions.ValidationException;
 import com.example.demov01.service.IClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ClientServiceImpl
 
     @GetMapping
     public List<ClientDto> getAllClients() {
-        return iClientService.findByDeletedFalse();
+        return iClientService.listClient();
     }
 
     @PutMapping
@@ -35,13 +36,22 @@ public class ClientServiceImpl
         iClientService.save(client);
     }
 
-    @DeleteMapping
+    @PutMapping
     public void updateClient(ClientDto client) {
         iClientService.save(client);
     }
 
     @PostMapping
     public void createClient(ClientDto client) {
+        boolean identificationExistente = iClientService.existsByIdentification(client.getIdentification());
+
+        if (identificationExistente) {
+            try {
+                throw new ValidationException("Identificación ya existe");
+            } catch (ValidationException e) {
+                throw new RuntimeException(e);
+            }
+        }
         iClientService.save(client);
     }
 }

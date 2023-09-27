@@ -5,6 +5,7 @@ import com.example.demov01.model.ClientsModel;
 import com.example.demov01.service.impl.ClientServiceImpl;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/client")
+@Service
 public class ClienteController {
 
     @Autowired
@@ -49,7 +51,7 @@ public class ClienteController {
             Optional<ClientDto> productoOptional = clientService.getClientById(id);
             if (productoOptional.isPresent()) {
                 ClientDto clientDto = productoOptional.get();
-                clientDto.setIdentification(clientsModel.getIdentification());
+                clientDto.setName(clientsModel.getName());
                 clientDto.setEmail(clientsModel.getEmail());
                 clientDto.setPhone(clientsModel.getPhone());
                 clientService.updateClient(clientDto);
