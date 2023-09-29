@@ -1,0 +1,49 @@
+<div class="container">
+  <!--COMIENZA TOOLBAR-->
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="toolbar-name">S-Inventory</h1>
+    <div class="toolbar-right">
+      <ul>
+        <li>
+          <button mat-icon-button>
+            <mat-icon>help_outline</mat-icon>
+          </button>
+        </li>
+        <li>
+          <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>person_outline</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" class="menu-sidenav">
+            <mat-icon>exit_to_app</mat-icon>
+            Cerrar Sesión
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container
+    class="sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+    <mat-sidenav
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+    >
+      <mat-nav-list>
+        <div class="profile-card">
+          <div class="header">
+            <h2>Fanny Mayorga</h2>
+            <h4>fmayorga@gmail.com</h4>
+          </div>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+  </mat-sidenav-container>
+  <!--COMIENZA SIDENAV-->
+  <router-outlet></router-outlet>
+</div>
