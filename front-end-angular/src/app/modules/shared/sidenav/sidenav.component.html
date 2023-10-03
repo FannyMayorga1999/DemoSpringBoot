@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container" [class.is_mobile]="mobileQuery.matches">
   <!--COMIENZA TOOLBAR-->
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" class="sidenav-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -24,6 +24,7 @@
       </ul>
     </div>
   </mat-toolbar>
+  <!--COMIENZA SIDENAV-->
   <mat-sidenav-container
     class="sidenav-container"
     [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
@@ -35,15 +36,23 @@
       fixedTopGap="56"
     >
       <mat-nav-list>
+        <!--PROFILE-->
         <div class="profile-card">
           <div class="header">
             <h2>Fanny Mayorga</h2>
             <h4>fmayorga@gmail.com</h4>
           </div>
         </div>
+        <mat-divider></mat-divider>
+        <a mat-list-item [routerLink]="nav.route" *ngFor="let nav of menuNav">
+          <mat-icon class="icono">{{ nav.icon }}</mat-icon>
+          {{ nav.name }}
+        </a>
       </mat-nav-list>
     </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
   </mat-sidenav-container>
-  <!--COMIENZA SIDENAV-->
-  <router-outlet></router-outlet>
+  <!--TERMINA SIDENAV-->
 </div>

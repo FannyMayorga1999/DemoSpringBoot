@@ -8,6 +8,10 @@
   right: 0;
 }
 
+.is-mobile .sidenav-toolbar {
+  position: absolute;
+  z-index: 2;
+}
 /*TOOLBAR CSS*/
 h1.toolbar-name {
   margin-left: 2vw;
@@ -43,6 +47,10 @@ ul li {
 
 .is-mobile .sidenav-container {
   flex: 1 0 auto;
+}
+
+.icono {
+  margin-right: 15px;
 }
 /*
             style="display: flex; align-items: center; margin: 10px"
