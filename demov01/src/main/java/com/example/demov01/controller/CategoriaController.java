@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 //Ayuda a dar permiso de cors para el consumo
-@CrossOrigin(origins ={ "http://localhost:4200"})
+@CrossOrigin(origins ={ "http://localhost:4200/"})
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
