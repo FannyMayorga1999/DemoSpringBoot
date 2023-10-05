@@ -1,10 +1,11 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MaterialModule } from "../shared/material.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../shared/material.module';
+import { CategoryComponent } from './components/category.component';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  declarations: [CategoryComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
 })
 export class CategoryModule {}

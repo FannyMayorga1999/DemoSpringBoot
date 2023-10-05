@@ -1,13 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { ServiceService } from "../../shared/services/service.service";
+import { Component, OnInit } from '@angular/core';
+import { ServiceService } from '../../shared/services/service.service';
+import { CategoriaModel } from 'src/model/categoriaModel';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: "app-category",
-  templateUrl: "./category.component.html",
-  styleUrls: ["./category.component.css"],
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-  categoryUrl = "/categoria/list";
+  categoryUrl = '/categoria/list';
 
   constructor(private service: ServiceService) {}
 
@@ -15,10 +17,13 @@ export class CategoryComponent implements OnInit {
     this.getProducts();
   }
 
+  dataSource: MatTableDataSource<CategoriaModel> = new MatTableDataSource();
+  displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
+
   getProducts() {
     this.service.get(this.categoryUrl).subscribe(
       (response: any) => {
-        console.log(response);
+        this.dataSource.data = response;
       },
       (error: any) => {
         console.log(error);
