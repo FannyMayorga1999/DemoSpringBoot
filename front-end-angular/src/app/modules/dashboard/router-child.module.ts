@@ -1,19 +1,19 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { HomeComponent } from "./components/home/home.component";
-import { CategoryComponent } from "../category/components/category.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { CategoryComponent } from '../category/components/category/category.component';
 
 const routerChild: Routes = [
   {
-    path: "",
+    path: '',
     component: HomeComponent,
   },
   {
-    path: "home",
+    path: 'home',
     component: HomeComponent,
   },
   {
-    path: "category",
+    path: 'category',
     component: CategoryComponent,
   },
 ];
