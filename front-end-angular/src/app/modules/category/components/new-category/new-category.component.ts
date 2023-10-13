@@ -13,12 +13,11 @@ export class NewCategoryComponent implements OnInit {
   btnSaveCategoria = true;
   btnActualizarCategoria = false;
 
-  private service = inject(ServiceService);
-
   public categoryForm!: FormGroup;
   private fb = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef);
   private data = inject(MAT_DIALOG_DATA);
+  private service = inject(ServiceService);
 
   ngOnInit(): void {
     this.categoryForm = this.fb.group({

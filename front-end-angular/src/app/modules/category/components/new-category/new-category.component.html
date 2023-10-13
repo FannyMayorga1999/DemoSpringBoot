@@ -19,6 +19,9 @@
 
 <mat-dialog-actions class="right">
   <div class="right">
+    <button mat-button color="accent" (click)="onCancel()">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
     <button
       *ngIf="btnSaveCategoria"
       mat-button
@@ -36,10 +39,6 @@
       [disabled]="categoryForm.invalid"
     >
       <mat-icon>save</mat-icon> Actualizar
-    </button>
-
-    <button mat-button color="accent" (click)="onCancel()">
-      <mat-icon>cancel</mat-icon> Cancelar
     </button>
   </div>
 </mat-dialog-actions>

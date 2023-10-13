@@ -4,6 +4,7 @@ import { CategoriaModel } from 'src/model/categoriaModel';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCategoryComponent } from '../new-category/new-category.component';
+import { ConfirmComponent } from 'src/app/modules/shared/confirm/confirm.component';
 import {
   MatSnackBar,
   MatSnackBarRef,
@@ -16,7 +17,8 @@ import {
   styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
-  categoryUrl = '/categoria/list';
+  categoryListUrl = '/categoria/list';
+  categoryUrl = '/categoria/';
 
   private service = inject(ServiceService);
   private snackBar = inject(MatSnackBar);
@@ -26,11 +28,12 @@ export class CategoryComponent implements OnInit {
     this.getCategoria();
   }
 
-  dataSource: MatTableDataSource<CategoriaModel> = new MatTableDataSource();
+  //dataSource: MatTableDataSource<CategoriaModel> = new MatTableDataSource();
+  dataSource = new MatTableDataSource<CategoriaModel>([]);
   displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
 
   getCategoria() {
-    this.service.getApi(this.categoryUrl).subscribe(
+    this.service.getApi(this.categoryListUrl).subscribe(
       (response: any) => {
         this.dataSource.data = response;
       },
@@ -63,6 +66,39 @@ export class CategoryComponent implements OnInit {
     });
   }
 
+  deleteCategoria(id: number) {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      data: {
+        id: id,
+      },
+      width: '450px',
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.openSnackBar('Categoría Eliminada', 'Exitosa');
+        this.getCategoria();
+      } else {
+        this.openSnackBar('Se produjo un error al eliminar categoria', 'Error');
+      }
+    });
+  }
+
+  buscarCategoria(termino: string) {
+    if (termino.length === 0) {
+      return this.getCategoria();
+    } else {
+      this.service.getApi(`${this.categoryUrl}${termino}`).subscribe(
+        (response: any) => {
+          this.dataSource.data = [response];
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
+    }
+  }
+  //**  MODALES */
   openModalCategoria(): void {
     const dialogRef = this.dialog.open(NewCategoryComponent, {
       width: '450px',
