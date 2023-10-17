@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ServiceService } from '../../../shared/services/service.service';
 import { CategoriaModel } from 'src/model/categoriaModel';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +10,7 @@ import {
   MatSnackBarRef,
   SimpleSnackBar,
 } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-category',
@@ -24,11 +25,13 @@ export class CategoryComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
 
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
   ngOnInit(): void {
     this.getCategoria();
   }
 
-  //dataSource: MatTableDataSource<CategoriaModel> = new MatTableDataSource();
   dataSource = new MatTableDataSource<CategoriaModel>([]);
   displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
 
@@ -36,6 +39,7 @@ export class CategoryComponent implements OnInit {
     this.service.getApi(this.categoryListUrl).subscribe(
       (response: any) => {
         this.dataSource.data = response;
+        this.dataSource.paginator = this.paginator;
       },
       (error: any) => {
         console.log(error);
@@ -91,6 +95,7 @@ export class CategoryComponent implements OnInit {
       this.service.getApi(`${this.categoryUrl}${termino}`).subscribe(
         (response: any) => {
           this.dataSource.data = [response];
+          this.dataSource.paginator = this.paginator;
         },
         (error: any) => {
           console.log(error);
