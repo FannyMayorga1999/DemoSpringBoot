@@ -2,6 +2,7 @@ package com.example.demov01.controller;
 
 import com.example.demov01.dto.CategoriaDto;
 import com.example.demov01.dto.ProductoDto;
+import com.example.demov01.model.CategoriaModel;
 import com.example.demov01.service.impl.ProductoImpl;
 
 import org.slf4j.Logger;
@@ -47,6 +48,47 @@ public class ProductController {
             return new ResponseEntity<>("Producto no encontrado", HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping
+    public ResponseEntity<String> createProductos(@RequestBody ProductoDto productoDto, Long CategoriaId) {
+        try {
+            logger.info("Data recibida: {}", productoDto);
+            productoImpl.createProducto(productoDto);
+            //return new ResponseEntity<>("Categoria creado correctamente", HttpStatus.CREATED);
+
+            String jsonResponse = "{ \"mensaje\": \"Producto creado correctamente\" }";
+
+            // Devolver una respuesta con el código de estado 201 (Created) y el JSON
+            return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
+        } catch (Exception e) {
+
+            //return new ResponseEntity<>("Error al crear la categoria: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            String jsonResponse = "{ \"Error\":" + e.getMessage()+ "}";
+            return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+/*    @PutMapping("/{id}")
+    public ResponseEntity<String> updateProducto(@PathVariable Long id, @RequestBody ProductosModel productosModel) {
+        try {
+            Optional<ProductoDto> productoDto = productoImpl.getProductoById(id);
+            if (productoDto.isPresent()) {
+                ProductoDto productoDto = categoria.get();
+                productosModel.setName(categoriaModel.getName());
+                productosModel.setDescription(categoriaModel.getDescription());
+                productosModel.updateCategoria(categoriaDto);
+                //return new ResponseEntity<>("Categoria actualizado correctamente", HttpStatus.OK);
+
+                String jsonResponse = "{ \"mensaje\": \"Categoria actualizado correctamente\" }";
+                return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("Categoria no encontrado", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            String jsonResponse = "{ \"Error\":" + e.getMessage()+ "}";
+            return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategoria(@PathVariable Long id) {
