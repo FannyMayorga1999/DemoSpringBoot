@@ -1,18 +1,19 @@
 package com.example.demov01.controller;
+
 import com.example.demov01.dto.CategoriaDto;
 import com.example.demov01.model.CategoriaModel;
 import com.example.demov01.service.impl.CategoriaImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-//Ayuda a dar permiso de cors para el consumo
-@CrossOrigin(origins ={ "http://localhost:4200/"})
+// Ayuda a dar permiso de cors para el consumo
+@CrossOrigin(origins = {"http://localhost:4200/"})
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
@@ -46,12 +47,14 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCategoria(@RequestBody CategoriaDto categoria) {
+    public ResponseEntity<String> createCategoria(@RequestBody CategoriaModel categoriaModel) {
         try {
-            logger.info("Data recibida: {}", categoria);
-            categoriaImpl.createCategoria(categoria);
-            //return new ResponseEntity<>("Categoria creado correctamente", HttpStatus.CREATED);
+            logger.info("Data recibida: {}", categoriaModel);
 
+            CategoriaDto categoriaDto = new CategoriaDto();
+            categoriaDto.setName(categoriaModel.getName());
+            categoriaDto.setDescription(categoriaModel.getDescription());
+            categoriaImpl.createCategoria(categoriaDto);
             String jsonResponse = "{ \"mensaje\": \"Categoria creado correctamente\" }";
 
             // Devolver una respuesta con el código de estado 201 (Created) y el JSON
@@ -59,11 +62,11 @@ public class CategoriaController {
         } catch (Exception e) {
 
             //return new ResponseEntity<>("Error al crear la categoria: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-            String jsonResponse = "{ \"Error\":" + e.getMessage()+ "}";
+            String jsonResponse = "{ \"Error\":" + e.getMessage() + "}";
             return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
 
+    }
     @PutMapping("/{id}")
     public ResponseEntity<String> updateCategoria(@PathVariable Long id, @RequestBody CategoriaModel categoriaModel) {
         try {

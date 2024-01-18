@@ -1,9 +1,23 @@
 package com.example.demov01.model;
+
 import lombok.Data;
+
 @Data
 public class CategoriaModel {
-    private String id;
+
+    private Long id;
     private String name;
     private String description;
     private boolean deleted;
+
+    // Constructor sin argumentos
+    public CategoriaModel() {
+    }
+
+    // Constructor con argumentos
+    public CategoriaModel(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }
