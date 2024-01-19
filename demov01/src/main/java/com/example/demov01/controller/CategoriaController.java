@@ -24,10 +24,10 @@ public class CategoriaController {
     private CategoriaImpl categoriaImpl;
 
     @GetMapping("/list")
-    public ResponseEntity<List<CategoriaDto>> obtenerCategorias() {
+    public ResponseEntity<List<CategoriaModel>> obtenerCategorias() {
         try {
-            List<CategoriaDto> categoriasDto = categoriaImpl.getCategorias();
-            return new ResponseEntity<>(categoriasDto, HttpStatus.OK);
+            List<CategoriaModel> categoriaModel = categoriaImpl.getCategorias();
+            return new ResponseEntity<>(categoriaModel, HttpStatus.OK);
         } catch (Exception e) {
             // Si se produce una excepción, se maneja y se devuelve una respuesta de error
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,13 +36,14 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategoriaById(@PathVariable Long id) {
-        Optional<CategoriaDto> categoria = categoriaImpl.getCategoriaById(id);
+        Optional<CategoriaModel> categoria = categoriaImpl.getCategoriaById(id);
 
         if (categoria.isPresent()) {
-            CategoriaDto categoriaDto = categoria.get();
-            return new ResponseEntity<>(categoriaDto, HttpStatus.OK);
+            CategoriaModel categoriaModel = categoria.get();
+            return new ResponseEntity<>(categoriaModel, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Producto no encontrado", HttpStatus.NOT_FOUND);
+            String mensaje = "Categoría no encontrada";
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -54,8 +55,6 @@ public class CategoriaController {
             String jsonResponse = "{ \"mensaje\": \"Categoria creado correctamente\" }";
             return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
         } catch (Exception e) {
-
-            //return new ResponseEntity<>("Error al crear la categoria: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             String jsonResponse = "{ \"Error\":" + e.getMessage() + "}";
             return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -68,14 +67,6 @@ public class CategoriaController {
             categoriaImpl.updateCategoria(id , categoriaModel);
             String jsonResponse = "{ \"mensaje\": \"Categoria actualizado correctamente\" }";
             return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
-            /*Optional<CategoriaDto> categoria = categoriaImpl.getCategoriaById(id);
-            if (categoria.isPresent()) {
-                categoriaImpl.updateCategoria(categoriaModel);
-                String jsonResponse = "{ \"mensaje\": \"Categoria actualizado correctamente\" }";
-                return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
-            } else {
-                return new ResponseEntity<>("Categoria no encontrado", HttpStatus.NOT_FOUND);
-            }*/
         } catch (Exception e) {
             String jsonResponse = "{ \"Error\":" + e.getMessage()+ "}";
             return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -85,19 +76,9 @@ public class CategoriaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategoria(@PathVariable Long id) {
         try {
-            Optional<CategoriaDto> categoria = categoriaImpl.getCategoriaById(id);
-            if (categoria.isPresent()) {
-                CategoriaDto categoriaDto = categoria.get();
-                categoriaDto.setDeleted(true);
-                categoriaImpl.deleteCategoria(categoriaDto);
-                //return new ResponseEntity<>("Categoria eliminado correctamente", HttpStatus.OK);
-                String jsonResponse = "{ \"mensaje\": \"Categoria eliminado correctamente\" }";
-                return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
-            } else {
-                //return new ResponseEntity<>("Categoria no encontrado", HttpStatus.NOT_FOUND);
-                String jsonResponse = "{ \"mensaje\": \"Categoria no encontrado\" }";
-                return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            categoriaImpl.deleteCategoria(id);
+            String jsonResponse = "{ \"mensaje\": \"Categoria eliminado correctamente\" }";
+            return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
         } catch (Exception e) {
             String jsonResponse = "{ \"Error\":" + e.getMessage()+ "}";
             return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);

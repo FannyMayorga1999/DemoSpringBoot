@@ -21,12 +21,10 @@ public class CategoriaDto {
     @Column(name = "description")
     private String description;
 
-    @JsonIgnore
     @Column(name = "deleted")
     private boolean deleted;
 
     // Para ignorar el campo
-    @JsonIgnore
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductoDto> productos;
 

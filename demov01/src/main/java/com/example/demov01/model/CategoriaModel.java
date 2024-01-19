@@ -1,5 +1,6 @@
 package com.example.demov01.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -8,6 +9,7 @@ public class CategoriaModel {
     private Long id;
     private String name;
     private String description;
+    @JsonIgnore
     private boolean deleted;
 
     // Constructor sin argumentos

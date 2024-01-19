@@ -1,6 +1,7 @@
 package com.example.demov01.service;
 
 import com.example.demov01.dto.CategoriaDto;
+import com.example.demov01.model.CategoriaModel;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
