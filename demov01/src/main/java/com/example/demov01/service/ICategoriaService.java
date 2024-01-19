@@ -17,6 +17,8 @@ public interface ICategoriaService extends JpaRepository<CategoriaDto, Long> {
     @Query("SELECT new com.example.demov01.dto.CategoriaDto(cd.id, cd.name, cd.description) FROM CategoriaDto cd WHERE cd.id = :id")
     Optional<CategoriaDto> findById(@Param("id") Long id);
 
+    boolean existsById(Long id);
+
     @Modifying
     @Query("UPDATE FROM CategoriaDto SET deleted = true WHERE id = :id")
     void deleteCategoria(@Param("id") Long id);

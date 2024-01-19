@@ -50,14 +50,8 @@ public class CategoriaController {
     public ResponseEntity<String> createCategoria(@RequestBody CategoriaModel categoriaModel) {
         try {
             logger.info("Data recibida: {}", categoriaModel);
-
-            CategoriaDto categoriaDto = new CategoriaDto();
-            categoriaDto.setName(categoriaModel.getName());
-            categoriaDto.setDescription(categoriaModel.getDescription());
-            categoriaImpl.createCategoria(categoriaDto);
+            categoriaImpl.createCategoria(categoriaModel);
             String jsonResponse = "{ \"mensaje\": \"Categoria creado correctamente\" }";
-
-            // Devolver una respuesta con el código de estado 201 (Created) y el JSON
             return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
         } catch (Exception e) {
 
@@ -70,19 +64,18 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateCategoria(@PathVariable Long id, @RequestBody CategoriaModel categoriaModel) {
         try {
-            Optional<CategoriaDto> categoria = categoriaImpl.getCategoriaById(id);
+            logger.info("Data recibida: {}", categoriaModel);
+            categoriaImpl.updateCategoria(id , categoriaModel);
+            String jsonResponse = "{ \"mensaje\": \"Categoria actualizado correctamente\" }";
+            return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
+            /*Optional<CategoriaDto> categoria = categoriaImpl.getCategoriaById(id);
             if (categoria.isPresent()) {
-                CategoriaDto categoriaDto = categoria.get();
-                categoriaDto.setName(categoriaModel.getName());
-                categoriaDto.setDescription(categoriaModel.getDescription());
-                categoriaImpl.updateCategoria(categoriaDto);
-                //return new ResponseEntity<>("Categoria actualizado correctamente", HttpStatus.OK);
-
+                categoriaImpl.updateCategoria(categoriaModel);
                 String jsonResponse = "{ \"mensaje\": \"Categoria actualizado correctamente\" }";
                 return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
             } else {
                 return new ResponseEntity<>("Categoria no encontrado", HttpStatus.NOT_FOUND);
-            }
+            }*/
         } catch (Exception e) {
             String jsonResponse = "{ \"Error\":" + e.getMessage()+ "}";
             return new ResponseEntity<>(jsonResponse, HttpStatus.INTERNAL_SERVER_ERROR);
