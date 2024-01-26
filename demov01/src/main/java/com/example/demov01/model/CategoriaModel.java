@@ -11,6 +11,7 @@ public class CategoriaModel {
     private String description;
     @JsonIgnore
     private boolean deleted;
+    private CategoriaModel categoriaModel;
 
     // Constructor sin argumentos
     public CategoriaModel() {

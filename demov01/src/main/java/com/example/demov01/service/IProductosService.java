@@ -19,7 +19,4 @@ public interface IProductosService extends JpaRepository<ProductoDto, Long>{
     @Query("SELECT p FROM ProductoDto p INNER JOIN FETCH p.categoria WHERE p.id = :id")
     Optional<ProductoDto> findById(@Param("id") Long id);
 
-    @Modifying
-    @Query("UPDATE FROM ProductoDto SET deleted = 1 WHERE  id =  :id")
-    void deleteProductos(@Param("id") Long id);
 }

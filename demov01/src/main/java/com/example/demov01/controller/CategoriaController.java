@@ -26,8 +26,8 @@ public class CategoriaController {
     @GetMapping("/list")
     public ResponseEntity<List<CategoriaModel>> obtenerCategorias() {
         try {
-            List<CategoriaModel> categoriaModel = categoriaImpl.getCategorias();
-            return new ResponseEntity<>(categoriaModel, HttpStatus.OK);
+            List<CategoriaModel> categoriaModels = categoriaImpl.getCategorias();
+            return new ResponseEntity<>(categoriaModels, HttpStatus.OK);
         } catch (Exception e) {
             // Si se produce una excepción, se maneja y se devuelve una respuesta de error
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -85,4 +85,16 @@ public class CategoriaController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<CategoriaModel>> searchCategorias(
+            @RequestParam(required = false) String search) {
+
+        try {
+            List<CategoriaModel> CategoriaModels = categoriaImpl.searchCategorias(search);
+            return new ResponseEntity<>(CategoriaModels, HttpStatus.OK);
+        } catch (Exception e) {
+            // Si se produce una excepción, se maneja y se devuelve una respuesta de error
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

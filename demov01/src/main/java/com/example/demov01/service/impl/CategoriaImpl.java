@@ -99,4 +99,12 @@ public class CategoriaImpl {
         }
     }
 
+    public List<CategoriaModel> searchCategorias( String search ) {
+        List<CategoriaDto> categoriaDtos = iCategoriaService.findByNameDescription(search );
+
+        return categoriaDtos.stream()
+                .map(categoriaDto -> new CategoriaModel(categoriaDto.getId(), categoriaDto.getName(), categoriaDto.getDescription()))
+                .collect(Collectors.toList());
+    }
+
 }
